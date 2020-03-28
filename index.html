@@ -1,0 +1,131 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Compiled and minified CSS -->
+  <title>GameGuidez</title>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <script src="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css" />
+
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="header">
+
+    <!-- Website Name and Topbar -->
+    <div class="topbar">
+
+
+    </div>
+
+    <div style="display: flex; flex-direction: row; flex-wrap:nowrap; justify-content: space-between;">
+      <h1 class="coronafriends">CoronaFriends</h1>
+      <!-- <div style="display:block; width:180px; margin-left: 20px; margin-top:10px; text-align: center;" class="homeicon"> -->
+      <img id="profpic" class="profpic" src="/img/tempprofpic.png">
+      <!-- </div> -->
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+      <a class="active" href="#">Home</a>
+      <!-- <a href="#"> Search</a>
+      <a href="#"> Contact</a> -->
+      <a id="login-button" onclick="document.getElementById('signin-modal').className = 'signin-modal--is-visible'" href="#">Login</a>
+      <a id="logout-button" style="visibility: hidden;" onclick="signOutAndReload()" href="#">Log Out</a>
+    </div>
+  </div>
+
+  <!-- PAGE -->
+  <div class="page">
+
+    <h1>Welcome to CoronaFriends</h1>
+    <p>Log in to get started chatting, watching, or interacting with new friends across the world.</p>
+  </div>
+
+  <div class="signin-modal" id="signin-modal">
+    <div class=".modal-overlay"><button onclick="document.getElementById('signin-modal').className = 'signin-modal'" style="float:right; background: transparent; border: transparent;"><span class="material-icons">close</span></button></div>
+<bR>
+    <h2>Sign in with email or Google</h2>
+    <div id="firebaseui-auth-container"></div>
+
+  </div>
+
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase.js"></script>
+  <!-- <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-functions.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-analytics.js"></script> -->
+  <script>
+    // Initialize Firebase
+    var firebaseConfig = {
+      apiKey: "AIzaSyDq1V80j2ffKoZ8k-Lx33fA4d2YnMZkRWE",
+      authDomain: "corona-friends.firebaseapp.com",
+      databaseURL: "https://corona-friends.firebaseio.com",
+      projectId: "corona-friends",
+      storageBucket: "corona-friends.appspot.com",
+      messagingSenderId: "293509465092",
+      appId: "1:293509465092:web:4f3442d1d5c9ae746f6151",
+      measurementId: "G-G9FV2L8SGQ"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    // make auth and firestore references
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const functions = firebase.functions();
+  </script>
+
+  <script type="text/javascript">
+    // FirebaseUI config.
+    var uiConfig = {
+      signInSuccessUrl: '/index.html',
+      signInOptions: [
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+      ],
+      tosUrl: '<your-tos-url>',
+      privacyPolicyUrl: '<your-tos-url>'
+    };
+
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
+  </script>
+
+  <script>
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        document.getElementById('profpic').src=user.photoURL
+        document.getElementById('login-button').style.visibility="hidden"
+        document.getElementById('logout-button').style.visibility="visible"
+      } else {
+        // No user is signed in.
+      }
+    });
+
+    function signOutAndReload(){
+      auth.signOut()
+      location.reload()
+    }
+    
+  </script>
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/index.js"></script>
+</body>
+
+</html>
