@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- Compiled and minified CSS -->
-  <title>GameGuidez</title>
+  <title>CoronaFriends</title>
 
   <link rel="stylesheet" type="text/css" href="style.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
@@ -13,6 +13,8 @@
 
   <script src="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.js"></script>
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
 </head>
 
@@ -34,38 +36,59 @@
     </div>
 
     <!-- Navbar -->
-    <div class="navbar">
-      <a class="active" href="#">Home</a>
-      <!-- <a href="#"> Search</a>
-      <a href="#"> Contact</a> -->
-      <a id="login-button" onclick="document.getElementById('signin-modal').className = 'signin-modal--is-visible'" href="#">Login</a>
-      <a id="logout-button" style="visibility: hidden;" onclick="signOutAndReload()" href="#">Log Out</a>
-    </div>
+    <nav class="navbar">
+      <ul>
+        <li><a class="active" href="#">Home</a></li>
+        <li><a id="login-a" class="logged-out" href="#">Login</a></li>
+        <li><a id="logout-a" class="logged-in" href="#">Log Out</a></li>
+        <li><a id="post-modal-a" class="logged-in" href="#">Post</a></li>
+      </ul>
+    </nav>
   </div>
 
   <!-- PAGE -->
   <div class="page">
+    <div class="logged-out" class="page">
+      <h3>Welcome to CoronaFriends</h3>
+      <p>Log in to get started chatting, watching, or interacting with new friends across the world.</p>
+    </div>
 
-    <h1>Welcome to CoronaFriends</h1>
-    <p>Log in to get started chatting, watching, or interacting with new friends across the world.</p>
+    <h1 class="logged-in">Chat Postings</h1>
+    <div class="logged-in" id="postings-container"></div>
   </div>
+
+  
 
   <div class="signin-modal" id="signin-modal">
-    <div class=".modal-overlay"><button onclick="document.getElementById('signin-modal').className = 'signin-modal'" style="float:right; background: transparent; border: transparent;"><span class="material-icons">close</span></button></div>
-<bR>
-    <h2>Sign in with email or Google</h2>
+    <button class="closemodal material-icons">close</button><br>
+    <div>Sign in with email or Google</div>
     <div id="firebaseui-auth-container"></div>
-
   </div>
+
+  <div class="post-modal" id="post-modal">
+    <button class="closemodal material-icons">close</button><br>
+    <h4>Create a Post</h4><br />
+    <form id="post-form" style="padding: 10px;">
+      <select id="post-form-typeselect" style="display: block;">
+        <option value="Chat" selected>Chat</option>
+        <option value="Watch">Watch</option>
+        <option value="Play">Play</option>
+        <option value="Other">Other</option>
+      </select>
+      <br>
+      <div style="text-align: left;">
+        <label>Description:</label><br>
+        <input id="post-modal-description" type="text"><br>
+      </div>
+      <button class="btn blue darken-2 z-depth-0">Create</button>
+    </form>
+  </div>
+
+
 
 
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase.js"></script>
-  <!-- <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-functions.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-analytics.js"></script> -->
   <script>
     // Initialize Firebase
     var firebaseConfig = {
@@ -87,6 +110,7 @@
     const functions = firebase.functions();
   </script>
 
+  <!-- activate FirebaseUI (auth) -->
   <script type="text/javascript">
     // FirebaseUI config.
     var uiConfig = {
@@ -105,27 +129,28 @@
     ui.start('#firebaseui-auth-container', uiConfig);
   </script>
 
-  <script>
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        document.getElementById('profpic').src=user.photoURL
-        document.getElementById('login-button').style.visibility="hidden"
-        document.getElementById('logout-button').style.visibility="visible"
-      } else {
-        // No user is signed in.
-      }
-    });
-
-    function signOutAndReload(){
-      auth.signOut()
-      location.reload()
-    }
-    
-  </script>
-
   <!-- Compiled and minified JavaScript -->
   <script src="scripts/auth.js"></script>
   <script src="scripts/index.js"></script>
+
+  <!-- CREATE GUIDE MODAL -->
+  <!-- <div id="modal-create" class="modal">
+    <div class="modal-content">
+      <h4>Create Guide</h4><br />
+      <form id="create-form">
+        <div class="input-field">
+          <input type="text" id="title" required>
+          <label for="title">Guide Title</label>
+        </div>
+        <div class="input-field">
+          <textarea id="content" class="materialize-textarea" required></textarea>
+          <label for="content">Guide Content</label>
+        </div>
+        <button class="btn yellow darken-2 z-depth-0">Create</button>
+      </form>
+    </div>
+  </div> -->
+
 </body>
 
 </html>

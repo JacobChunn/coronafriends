@@ -5,63 +5,57 @@ const loggedInLinks = document.querySelectorAll('.logged-in');
 const accountDetails = document.querySelector('.account-details');
 const adminItems = document.querySelectorAll('.admin');
 
+// Cloud Functions
+const getPosts = functions.httpsCallable('getPosts')
+
 const setupUI = (user) => {
   if (user) {
-    if (user.admin) {
-      adminItems.forEach(item => item.style.display = 'block');
-    }
-    // account info
-    db.collection('users').doc(user.uid).get().then(doc => {
-      const html = `
-        <div>Logged in as ${user.email}</div>
-        <div>${doc.data().bio}</div>
-        <div class="pink-text">${user.admin ? 'Admin' : ''}</div>
-      `;
-      accountDetails.innerHTML = html;
-    });
-    // toggle user UI elements
+    document.getElementById('profpic').src = user.photoURL
     loggedInLinks.forEach(item => item.style.display = 'block');
     loggedOutLinks.forEach(item => item.style.display = 'none');
   } else {
-    // clear account info
-    accountDetails.innerHTML = '';
-    // toggle user elements
-    adminItems.forEach(item => item.style.display = 'none');
     loggedInLinks.forEach(item => item.style.display = 'none');
     loggedOutLinks.forEach(item => item.style.display = 'block');
   }
+
+
+  // db.collection('postings').get().then(docs => {
+  // getPosts({type='chat'}).then((docs) => {
+  //   var html = ''
+  //   docs.forEach(doc => {
+  //     data = doc.data()
+  //     html += `
+  //       <div class="posting">
+  //         <p class="postingtype"> ${data.type} </p>
+  //         <p class="postingtext"> ${data.text} </p>
+  //         <a class="postingaccept">Go</a>
+  //       </div>
+  //     `
+  //   })
+
+    // document.getElementById("postings-container").innerHTML = html
+  // });
 };
 
-// setup guides
-const setupGuides = (data) => {
+document.getElementById("login-a").addEventListener("click", () => {
+  document.getElementById("signin-modal").style.display = "block";
+})
 
-  if (data.length) {
-    let html = '';
-    data.forEach(doc => {
-      const guide = doc.data();
-      const li = `
-        <li>
-          <div class="collapsible-header grey lighten-4"> ${guide.title} </div>
-          <div class="collapsible-body white"> ${guide.content} </div>
-        </li>
-      `;
-      html += li;
-    });
-    guideList.innerHTML = html
-  } else {
-    guideList.innerHTML = '<h5 class="center-align">Login to view guides</h5>';
-  }
-  
 
-};
+document.getElementById("post-modal-a").addEventListener("click", () => {
+  document.getElementById('post-modal').style.display = "block";
+})
 
-// setup materialize components
-document.addEventListener('DOMContentLoaded', function() {
+document.getElementById("logout-a").addEventListener("click", () => {
+  signOutAndReload()
+})
 
-  var modals = document.querySelectorAll('.modal');
-  M.Modal.init(modals);
+closemodals = document.getElementsByClassName("closemodal")
+Array.from(closemodals).forEach(button => {
+  button.addEventListener("click", () => {button.parentElement.style.display="none"})
+})
 
-  var items = document.querySelectorAll('.collapsible');
-  M.Collapsible.init(items);
-
-});
+const signOutAndReload = () => {
+  auth.signOut()
+  location.reload()
+}
