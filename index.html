@@ -24,11 +24,6 @@
 
     <!-- Website Name and Topbar -->
     <div class="topbar">
-
-
-    </div>
-
-    <div style="display: flex; flex-direction: row; flex-wrap:nowrap; justify-content: space-between;">
       <h1 class="coronafriends">CoronaFriends</h1>
       <!-- <div style="display:block; width:180px; margin-left: 20px; margin-top:10px; text-align: center;" class="homeicon"> -->
       <img id="profpic" class="profpic" src="/img/tempprofpic.png">
@@ -38,7 +33,7 @@
     <!-- Navbar -->
     <nav class="navbar">
       <ul>
-        <li><a class="active" href="#">Home</a></li>
+        <li><a class="active" href="/index.html">Home</a></li>
         <li><a id="login-a" class="logged-out" href="#">Login</a></li>
         <li><a id="logout-a" class="logged-in" href="#">Log Out</a></li>
         <li><a id="post-modal-a" class="logged-in" href="#">Post</a></li>
@@ -53,15 +48,19 @@
       <p>Log in to get started chatting, watching, or interacting with new friends across the world.</p>
     </div>
 
-    <h1 class="logged-in">Chat Postings</h1>
+    <h1 class="logged-in">Find a Friend</h1>
+    <div class="logged-in" id="select-category">
+      <a class="category-button">Chat</a>
+      <a class="category-button">Play</a>
+      <a class="category-button">Watch</a>
+      <a class="category-button">Other</a>
+    </div>
     <div class="logged-in" id="postings-container"></div>
   </div>
 
-  
-
   <div class="signin-modal" id="signin-modal">
     <button class="closemodal material-icons">close</button><br>
-    <div>Sign in with email or Google</div>
+    <div>Sign in Google</div>
     <div id="firebaseui-auth-container"></div>
   </div>
 
@@ -85,72 +84,15 @@
   </div>
 
 
-
-
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var firebaseConfig = {
-      apiKey: "AIzaSyDq1V80j2ffKoZ8k-Lx33fA4d2YnMZkRWE",
-      authDomain: "corona-friends.firebaseapp.com",
-      databaseURL: "https://corona-friends.firebaseio.com",
-      projectId: "corona-friends",
-      storageBucket: "corona-friends.appspot.com",
-      messagingSenderId: "293509465092",
-      appId: "1:293509465092:web:4f3442d1d5c9ae746f6151",
-      measurementId: "G-G9FV2L8SGQ"
-    };
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+  
+  <!-- Activate Firebase and FirebaseUI(auth) -->
+  <script src ="/scripts/initializeFirebase.js"></script> 
 
-    // make auth and firestore references
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-    const functions = firebase.functions();
-  </script>
-
-  <!-- activate FirebaseUI (auth) -->
-  <script type="text/javascript">
-    // FirebaseUI config.
-    var uiConfig = {
-      signInSuccessUrl: '/index.html',
-      signInOptions: [
-        firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID
-      ],
-      tosUrl: '<your-tos-url>',
-      privacyPolicyUrl: '<your-tos-url>'
-    };
-
-    // Initialize the FirebaseUI Widget using Firebase.
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    // The start method will wait until the DOM is loaded.
-    ui.start('#firebaseui-auth-container', uiConfig);
-  </script>
-
-  <!-- Compiled and minified JavaScript -->
+  <!-- Other JS Scripts -->
   <script src="scripts/auth.js"></script>
   <script src="scripts/index.js"></script>
-
-  <!-- CREATE GUIDE MODAL -->
-  <!-- <div id="modal-create" class="modal">
-    <div class="modal-content">
-      <h4>Create Guide</h4><br />
-      <form id="create-form">
-        <div class="input-field">
-          <input type="text" id="title" required>
-          <label for="title">Guide Title</label>
-        </div>
-        <div class="input-field">
-          <textarea id="content" class="materialize-textarea" required></textarea>
-          <label for="content">Guide Content</label>
-        </div>
-        <button class="btn yellow darken-2 z-depth-0">Create</button>
-      </form>
-    </div>
-  </div> -->
-
 </body>
 
 </html>

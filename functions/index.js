@@ -10,20 +10,19 @@ exports.getPosts = functions.https.onCall((data, context) => {
     // get all posts
     return db.collection('postings').get()
         .then(docs => {
-            console.log(docs)
 
+            let clientSelectedType = data.type
+            let dbDocType = doc._fieldsProto.type.stringValue
+
+            // this is the array that we send back to the client to be displayed
             let displayDocs = []
 
             docs.forEach(doc => {
-                console.log(doc, doc.type, data.type)
-                if (doc.type === data.type) displayDocs.push(doc)
+                // check that this doc's type and the client selected are the same
+                if (dbDocType === clientSelectedType) displayDocs.push(doc._fieldsProto)
             })
 
-            // docs.forEach(doc => {
-            //     if (doc.timestamp > 1585432367241) display.push(doc)
-            // });
-
-            return { displayDocs }
+            return displayDocs
         })
         .catch(err => console.log(err))
 })
