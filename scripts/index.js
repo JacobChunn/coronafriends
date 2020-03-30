@@ -36,7 +36,7 @@ const setupUI = (user) => {
                 <img class="postingimg" src="${doc.creator_photo_url ? doc.creator_photo_url.stringValue : './img/tempprofpic.png'}">
                 <p class="postingtext"> ${doc.text.stringValue} </p>
                 <p class="postingtime"> ${timeSinceFormatter(doc.timestamp.integerValue)} </p>
-                <a class="postingaccept">Go</a>
+                <a class="postingaccept" target="none" href=${doc.link ? doc.link.stringValue : ""}>Go</a>
               </div>
             `
           })
@@ -46,7 +46,8 @@ const setupUI = (user) => {
         .catch(err => console.log(err))
 
       // delete select category butttons
-      Array.from(categorySelectButtons).forEach(btn => btn.style.display = 'none')
+      // Array.from(categorySelectButtons).forEach(btn => btn.style.display = 'none')
+      document.getElementById("select-category").style.display = 'none'
 
       // add page selector buttons
       document.getElementsByClassName("postings-page-selector-container")[0].style.display = 'block'

@@ -1,6 +1,6 @@
 // listen for auth status changes
 auth.onAuthStateChanged(user => {
-  console.log("user:",user)
+  console.log("user:", user)
   if (user) setupUI(user); else setupUI()
 })
 
@@ -16,7 +16,8 @@ document.getElementById("post-form").addEventListener('submit', (e) => {
     creator_photo_url: auth.currentUser.photoURL,
     text: document.getElementById("post-modal-description").value,
     type: document.getElementById("post-form-typeselect").value,
-    timestamp: Date.now(),
+    link: document.getElementById("post-modal-link").value,
+    timestamp: Date.now()
   }).then(() => {
     // close the create modal & reset form
     document.getElementById("post-modal").style.display = "none"
