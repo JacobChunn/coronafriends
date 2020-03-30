@@ -5,22 +5,27 @@ admin.initializeApp()
 
 
 exports.getPosts = functions.https.onCall((data, context) => {
+
+    // client request options
+    let clientSelectedType = data.type
+    let numInPage = Number(data.numInPage)
+    let pageNum = Number(data.pageNum)
+
+    console.log(numInPage, pageNum)
+
     const db = admin.firestore()
-
-    // get all posts
-    return db.collection('postings').get()
+    const postingsRef = db.collection('postings')
+    const postingsOfCorrectType = postingsRef.where('type', '==', clientSelectedType);
+    const getPostingsByTime = postingsOfCorrectType.orderBy("timestamp", 'desc').limit(numInPage).offset((pageNum - 1) * numInPage)
+    return getPostingsByTime.get()
         .then(docs => {
-
-            let clientSelectedType = data.type
 
             // this is the array that we send back to the client to be displayed
             let displayDocs = []
 
             docs.forEach(doc => {
-                let dbDocType = doc._fieldsProto.type.stringValue
-
-                // check that this doc's type and the client selected are the same
-                if (dbDocType === clientSelectedType) displayDocs.push(doc._fieldsProto)
+                console.log(doc)
+                displayDocs.push(doc._fieldsProto)
             })
 
             return displayDocs

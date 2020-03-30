@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -54,8 +55,24 @@
       <a class="category-button">Play</a>
       <a class="category-button">Watch</a>
       <a class="category-button">Other</a>
+
+      <div id="postings-container"></div>
+
+      <div class="postings-page-selector-container" id="postings-page-selector-container">
+        <div class="postings-page-selector">
+          <a class="postings-page-selector-child inc-dec" id="pn-">-</a>
+          <div class="postings-page-selector-child">page</div>
+          <div class="postings-page-selector-child" id="postings-pagenum"> 1 </div>
+          <a class="postings-page-selector-child inc-dec" id="pn+">+</a>
+        </div>
+        <div class="postings-page-selector">
+          <a class="postings-page-selector-child inc-dec" id="ppp-">-</a>
+          <div class="postings-page-selector-child" id="postings-numperpage"> 10 </div>
+          <div class="postings-page-selector-child">posts per page</div>
+          <a class="postings-page-selector-child inc-dec" id="ppp+">+</a>
+        </div>
+      </div>
     </div>
-    <div class="logged-in" id="postings-container"></div>
   </div>
 
   <div class="signin-modal" id="signin-modal">
@@ -69,7 +86,7 @@
     <h4>Create a Post</h4><br />
     <form id="post-form" style="padding: 10px;">
       <select id="post-form-typeselect" style="display: block;">
-        <option value="Chat" selected>Chat</option>
+        <option value="Chat">Chat</option>
         <option value="Watch">Watch</option>
         <option value="Play">Play</option>
         <option value="Other">Other</option>
@@ -86,9 +103,9 @@
 
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase.js"></script>
-  
+
   <!-- Activate Firebase and FirebaseUI(auth) -->
-  <script src ="/scripts/initializeFirebase.js"></script> 
+  <script src="/scripts/initializeFirebase.js"></script>
 
   <!-- Other JS Scripts -->
   <script src="scripts/auth.js"></script>

@@ -129,6 +129,16 @@ firebaseui-auth-container {
     padding: 10px 5px;
     border-radius: 5px;
     min-width: 200px;
+    position: relative;
+}
+
+.postingimg {
+    max-width: 35px;
+    border-radius: 100%;
+    position: absolute;
+    /* right: 0; */
+    right: 5px;
+    top: 5px;
 }
 
 .postingtype {
@@ -137,6 +147,8 @@ firebaseui-auth-container {
 }
 
 .postingtext {}
+
+.postingtime {}
 
 .postingaccept {
     color: black;
@@ -154,7 +166,7 @@ firebaseui-auth-container {
 }
 
 .category-button {
-    padding:50px;
+    padding: 50px;
     background-color: #BBF3FF;
     color: black;
     display: inline-block;
@@ -170,3 +182,29 @@ firebaseui-auth-container {
     background-color: #0006DB;
     color: #BBF3FF;
 }
+
+.logged-out .logged-in {
+    display: none;
+}
+
+.postings-page-selector-container {
+    text-align: center;
+    width: 100%;
+    display: none;
+}
+
+.postings-page-selector {
+    font-size: 1em;
+    
+}
+
+.postings-page-selector-child{
+    display: inline-block;
+    
+}
+
+.inc-dec{
+    color: black;
+
+}
+
