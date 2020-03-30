@@ -12,12 +12,13 @@ exports.getPosts = functions.https.onCall((data, context) => {
         .then(docs => {
 
             let clientSelectedType = data.type
-            let dbDocType = doc._fieldsProto.type.stringValue
 
             // this is the array that we send back to the client to be displayed
             let displayDocs = []
 
             docs.forEach(doc => {
+                let dbDocType = doc._fieldsProto.type.stringValue
+
                 // check that this doc's type and the client selected are the same
                 if (dbDocType === clientSelectedType) displayDocs.push(doc._fieldsProto)
             })
